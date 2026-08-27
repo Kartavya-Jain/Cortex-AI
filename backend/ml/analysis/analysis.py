@@ -35,7 +35,8 @@ def analyze_dataset(df):
     feature_types_analysis=analyze_feature_types(df)
     null_patterns_analysis=analyze_null_patterns(df)
     column_roles_analysis=analyze_column_roles(df)
-    target_type_analysis=detect_target_type(df)
+    target_column=column_roles_analysis["target_column"]
+    target_type_analysis=detect_target_type(df,target_column)
     report = {
         "missing_analysis": missing_analysis,
         "duplicate_analysis": duplicate_analysis,
