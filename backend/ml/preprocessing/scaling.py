@@ -2,6 +2,13 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
 def handle_scaling(df, strategy="minmax"):
     numeric_columns=df.select_dtypes(include="number").columns
+    if len(numeric_columns) == 0:
+        report = {
+            "strategy": strategy,
+            "scaled_columns": [],
+            "scaled_count": 0
+        }
+        return df, report
     if strategy=="minmax":
         scaler=MinMaxScaler()
         df[numeric_columns]=scaler.fit_transform(df[numeric_columns])
