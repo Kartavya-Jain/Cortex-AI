@@ -15,7 +15,7 @@ from ml.analysis.cardinality_ratio import analyze_cardinality_ratio
 from ml.analysis.class_balance import analyze_class_balance
 from ml.analysis.feature_types import analyze_feature_types
 from ml.analysis.null_patterns import analyze_null_patterns
-from ml.analysis.column_roles import analyze_column_roles
+from ml.analysis.column_roles import analyze_column_roles, detect_target_type
 def analyze_dataset(df):
     missing_analysis=analyze_missing_values(df)
     duplicate_analysis=analyze_duplicates(df)
@@ -35,6 +35,7 @@ def analyze_dataset(df):
     feature_types_analysis=analyze_feature_types(df)
     null_patterns_analysis=analyze_null_patterns(df)
     column_roles_analysis=analyze_column_roles(df)
+    target_type_analysis=detect_target_type(df)
     report = {
         "missing_analysis": missing_analysis,
         "duplicate_analysis": duplicate_analysis,
@@ -53,6 +54,7 @@ def analyze_dataset(df):
         "class_balance_analysis": class_balance_analysis,
         "feature_types_analysis": feature_types_analysis,
         "null_patterns_analysis": null_patterns_analysis,
-        "column_roles_analysis": column_roles_analysis
+        "column_roles_analysis": column_roles_analysis,
+        "detect_type_analysis": target_type_analysis
     }
     return report

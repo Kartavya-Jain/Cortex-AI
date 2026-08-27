@@ -36,3 +36,18 @@ def analyze_column_roles(df):
         "feature_columns": feature_columns
     }
     return report
+def detect_target_type(df, target_column):
+    if target_column is None:
+        return None
+    if target_column not in df.columns:
+        return None
+    if df[target_column].dtype == "object" or df[target_column].dtype.name == "category":
+        return "classification"
+    if df[target_column].dtype == "bool":
+        return "classification"
+    if df[target_column].dtype in ["int64", "int32", "float64", "float32"]:
+        unique_count = df[target_column].nunique(dropna=True)
+        if unique_count <= 10:
+            return "classification"
+        return "regression"
+    return None
