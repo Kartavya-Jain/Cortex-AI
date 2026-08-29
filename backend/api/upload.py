@@ -26,12 +26,6 @@ async def upload_csv(file: UploadFile = File(...)):
     df = pd.read_csv(io.BytesIO(content), encoding="latin1", engine="python", on_bad_lines="skip")
     dataset_info=analyze_dataset(df)
     cleaned_df, preprocessing_info=preprocess_dataset(df)
-    dataset_info = json.loads(
-        json.dumps(dataset_info, default=lambda x: x.item() if isinstance(x, np.generic) else x)
-    )
-    dataset_info = json.loads(
-            json.dumps(preprocessing_info, default=lambda x: x.item() if isinstance(x, np.generic) else x)
-        )
     return jsonable_encoder ({
         "filename": file.filename,
         "dataset": dataset_info,
