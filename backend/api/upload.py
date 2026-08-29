@@ -2,6 +2,7 @@ from fastapi import APIRouter, UploadFile, File
 from fastapi.encoders import jsonable_encoder
 from ml.analysis.analysis import analyze_dataset
 from ml.preprocessing.preprocess import preprocess_dataset
+from ml.modeling.pipeline import run_ml_pipeline
 import shutil
 from pathlib import Path
 import pandas as pd
@@ -35,15 +36,12 @@ async def upload_csv(file: UploadFile = File(...)):
     content = content.replace(b"\x00", b"")
     df = pd.read_csv(io.BytesIO(content), encoding="latin1", engine="python", on_bad_lines="skip")
     dataset_info=analyze_dataset(df)
-    cleaned_df, preprocessing_info=preprocess_dataset(df)
+    ml_result = run_ml_pipeline(df)
     print("Original shape:", df.shape)
-    print("Cleaned df:", cleaned_df)
-    print("Cleaned columns:", cleaned_df.columns.tolist())
-    print("Remaining nulls:", cleaned_df.isnull().sum().sum())
     dataset_info = make_json_safe(dataset_info)
     preprocessing_info = make_json_safe(preprocessing_info)
     return jsonable_encoder ({
         "filename": file.filename,
         "dataset": dataset_info,
-        "preprocessing": preprocessing_info
+        "ml": ml_result
     })
