@@ -8,6 +8,16 @@ import pandas as pd
 import io
 import numpy as np
 import json
+def make_json_safe(obj):
+    if isinstance(obj, dict):
+        return {str(k): make_json_safe(v) for k, v in obj.items()}
+    if isinstance(obj, (list, tuple)):
+        return[ make_json_safe(v) for v in obj]
+    if isinstance(obj, np.generic):
+        return obj.item()
+    if isinstance(obj, np.ndarray):
+        return obj.tolist()
+    return obj
 BASE_DIR =Path(__file__).resolve().parent.parent
 UPLOAD_FOLDER=BASE_DIR/"uploads"
 UPLOAD_FOLDER.mkdir(exist_ok=True)
@@ -26,6 +36,12 @@ async def upload_csv(file: UploadFile = File(...)):
     df = pd.read_csv(io.BytesIO(content), encoding="latin1", engine="python", on_bad_lines="skip")
     dataset_info=analyze_dataset(df)
     cleaned_df, preprocessing_info=preprocess_dataset(df)
+    print("Original shape:", df.shape)
+    print("Cleaned df:", cleaned_df)
+    print("Cleaned columns:", cleaned_df.columns.tolist())
+    print("Remaining nulls:", cleaned_df.isnull().sum().sum())
+    dataset_info = make_json_safe(dataset_info)
+    preprocessing_info = make_json_safe(preprocessing_info)
     return jsonable_encoder ({
         "filename": file.filename,
         "dataset": dataset_info,
