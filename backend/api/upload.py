@@ -39,7 +39,6 @@ async def upload_csv(file: UploadFile = File(...)):
     ml_result = run_ml_pipeline(df)
     print("Original shape:", df.shape)
     dataset_info = make_json_safe(dataset_info)
-    preprocessing_info = make_json_safe(preprocessing_info)
     return jsonable_encoder ({
         "filename": file.filename,
         "dataset": dataset_info,
