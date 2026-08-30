@@ -18,7 +18,12 @@ def preprocess_dataset(df, target_column=None):
     df, outliers_preprocessing_report=handle_outliers(df)
     df, high_cardinality_preprocessing_report=handle_high_cardinality(df)
     df, encoding_preprocessing_report=handle_encoding(df)
-    df, scaling_preprocessing_report=handle_scaling(df, target_column=target_column) 
+    df, scaling_preprocessing_report=handle_scaling(df, target_column=target_column)
+    preprocessing_artifacts = {
+        "frequency_maps": high_cardinality_preprocessing_report["frequency_maps"],
+        "scaler": scaling_preprocessing_report["scaler"],
+        "encoded_columns": encoding_preprocessing_report["encoded_columns"]
+    }
     report = {
     "duplicates_preprocessing": duplicates_preprocessing_report,
     "missing_preprocessing": missing_preprocessing_report,
@@ -27,6 +32,7 @@ def preprocess_dataset(df, target_column=None):
     "outliers_preprocessing": outliers_preprocessing_report,
     "high_cardinality_preprocessing": high_cardinality_preprocessing_report,
     "encoding_preprocessing": encoding_preprocessing_report,
-    "scaling_preprocessing": scaling_preprocessing_report
+    "scaling_preprocessing": scaling_preprocessing_report,
+    "artifacts": preprocessing_artifacts
     }
     return df, report

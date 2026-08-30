@@ -20,6 +20,11 @@ def run_ml_pipeline(df):
         raise ValueError("Target column couldn't be detected.")
     #2. Preprocesing
     cleaned_df, preprocessing_info = preprocess_dataset(df, target_column)
+    ARTIFACT_PATH = Path(__file__).resolve().parent.parent / "saved_models"/"preprocessing_artifacts.pkl"
+    joblib.dump(
+        preprocessing_info["artifacts"],
+        ARTIFACT_PATH
+    )
     #3. Feature / Target split
     X, y, split_info = split_features_target(
         cleaned_df,

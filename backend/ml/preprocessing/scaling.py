@@ -28,6 +28,7 @@ def handle_scaling(df, strategy="minmax", target_column=None):
     report = {
         "strategy": strategy,
         "scaled_columns": list(numeric_columns),
-        "scaled_count": scaled_count
+        "scaled_count": scaled_count,
+        "scaler": scaler
     }
     return df, report
