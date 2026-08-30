@@ -8,6 +8,9 @@ from ml.modeling.train_models import train_models
 from ml.modeling.evaluate_models import evaluate_models
 from ml.modeling.select_best import select_best_model
 from ml.modeling.model_storage import save_model
+import joblib
+from pathlib import Path
+
 def run_ml_pipeline(df):
     #1. Preprocesing
     cleaned_df, preprocessing_info = preprocess_dataset(df)
@@ -50,6 +53,11 @@ def run_ml_pipeline(df):
     )
     #9. Save best model
     model_info = save_model(best_model)
+
+    #10. Save feature columns
+    BASE_DIR = Path(__file__).resolve().parent.parent
+    FEATURE_PATH = BASE_DIR / "saved_models"/"feature_columns.pkl"
+    joblib.dump(X.columns.tolist(), FEATURE_PATH)
     return {
         "target_column": target_column,
         "problem_type": problem_type,
