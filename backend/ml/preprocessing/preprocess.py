@@ -6,7 +6,7 @@ from ml.preprocessing.outliers import handle_outliers
 from ml.preprocessing.high_cardinality import handle_high_cardinality
 from ml.preprocessing.encoding import handle_encoding
 from ml.preprocessing.scaling import handle_scaling
-def preprocess_dataset(df):
+def preprocess_dataset(df, target_column=None):
     """
     Automatically do preprocessing
     """
@@ -18,7 +18,7 @@ def preprocess_dataset(df):
     df, outliers_preprocessing_report=handle_outliers(df)
     df, high_cardinality_preprocessing_report=handle_high_cardinality(df)
     df, encoding_preprocessing_report=handle_encoding(df)
-    df, scaling_preprocessing_report=handle_scaling(df) 
+    df, scaling_preprocessing_report=handle_scaling(df, target_column=target_column) 
     report = {
     "duplicates_preprocessing": duplicates_preprocessing_report,
     "missing_preprocessing": missing_preprocessing_report,

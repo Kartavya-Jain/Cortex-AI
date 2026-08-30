@@ -12,14 +12,14 @@ import joblib
 from pathlib import Path
 
 def run_ml_pipeline(df):
-    #1. Preprocesing
-    cleaned_df, preprocessing_info = preprocess_dataset(df)
-    #2. Detect target
+    #1. Detect target
     roles = analyze_column_roles(df)
     target_column = roles["target_column"]
     problem_type = roles["target_type"]
     if target_column is None:
         raise ValueError("Target column couldn't be detected.")
+    #2. Preprocesing
+    cleaned_df, preprocessing_info = preprocess_dataset(df, target_column)
     #3. Feature / Target split
     X, y, split_info = split_features_target(
         cleaned_df,
