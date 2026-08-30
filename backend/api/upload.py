@@ -13,12 +13,14 @@ def make_json_safe(obj):
     if isinstance(obj, dict):
         return {str(k): make_json_safe(v) for k, v in obj.items()}
     if isinstance(obj, (list, tuple)):
-        return[ make_json_safe(v) for v in obj]
+        return [make_json_safe(v) for v in obj]
     if isinstance(obj, np.generic):
         return obj.item()
     if isinstance(obj, np.ndarray):
         return obj.tolist()
-    return obj
+    if isinstance(obj, (str, int, float, bool)) or obj is None:
+        return obj
+    return str(obj)
 BASE_DIR =Path(__file__).resolve().parent.parent
 UPLOAD_FOLDER=BASE_DIR/"uploads"
 UPLOAD_FOLDER.mkdir(exist_ok=True)
@@ -38,7 +40,9 @@ async def upload_csv(file: UploadFile = File(...)):
     dataset_info=analyze_dataset(df)
     ml_result = run_ml_pipeline(df)
     print("Original shape:", df.shape)
+    ml_result["preprocessing"]["artifacts"].pop("scaler", None)
     dataset_info = make_json_safe(dataset_info)
+    ml_result = make_json_safe(ml_result)
     return jsonable_encoder ({
         "filename": file.filename,
         "dataset": dataset_info,
