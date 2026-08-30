@@ -29,6 +29,9 @@ def make_prediction(data: dict):
         drop_first=True
         )
     X = X.reindex(columns=feature_columns, fill_value=0)
+    scaler = artifacts["scaler"]
+    numeric_columns = scaler.feature_names_in_
+    X[numeric_columns] = scaler.transform(X[numeric_columns])
     result = predict(model, X)
     return {
         "prediction": result[0]
