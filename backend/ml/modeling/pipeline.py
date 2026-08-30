@@ -56,7 +56,7 @@ def run_ml_pipeline(df):
         evaluation_results,
         problem_type
     )
-    #9. Save best model
+    #9. Save best
     model_info = save_model(best_model)
 
     #10. Save feature columns
