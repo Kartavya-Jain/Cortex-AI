@@ -25,10 +25,10 @@ def make_prediction(data: dict):
         X[column] = X[column].map(mapping).fillna(0)
     X =pd.get_dummies(
         X,
-        colums=artifacts["encoded_columns"],
+        columns=artifacts["encoded_columns"],
         drop_first=True
         )
-    X.reindex(columns=feature_columns, fill_value=0)
+    X = X.reindex(columns=feature_columns, fill_value=0)
     result = predict(model, X)
     return {
         "prediction": result[0]
