@@ -46,9 +46,16 @@ async def upload_csv(file: UploadFile = File(...)):
     ml_result["preprocessing"]["artifacts"].pop("scaler", None)
     dataset_info = make_json_safe(dataset_info)
     ml_result = make_json_safe(ml_result)
-    return jsonable_encoder ({
+    final_evaluation = ml_result.get("final_evaluation")
+    if final_evaluation:
+        ml_result["final_evaluation"] = {
+            key: value
+            for key, value in final_evaluation.items()
+            if key not in ["actual", "predicted", "absolute_error", "error_percent"]
+        }
+    return {
         "filename": file.filename,
         "dataset": dataset_info,
         "ml": ml_result,
         "evaluation": final_evaluation
-    })
+    }

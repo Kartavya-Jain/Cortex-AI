@@ -26,7 +26,7 @@ uploadBtn.addEventListener("click", async(event)=>{
                 throw error;
             });
         const data = await response.json();
-        console.log("Response:", data);
+        console.log("Response:", data.ml.final_evaluation);
         if (!response.ok){
             throw new Error(data.detail || "Upload failed.");
         }
@@ -35,6 +35,17 @@ uploadBtn.addEventListener("click", async(event)=>{
             <p><strong>Target:</strong>${data.ml.target_column}</p>
             <p><strong>Problem Type:</strong>${data.ml.problem_type}</p>
             <p><strong>Best Model:</strong>${data.ml.best_model}</p>`;
+        const evaluation = data.ml.final_evaluation;
+        const evaluationContainer = document.createElement("div");
+        Object.entries(evaluation).forEach(([key, value]) => {
+            const item = document.createElement("p");
+            const label = document.createElement("strong");
+            label.textContent = `${key}: `;
+            item.appendChild(label);
+            item.appendChild(document.createTextNode(value));
+            evaluationContainer.appendChild(item);
+        });
+        result.appendChild(evaluationContainer);
         const artifacts = data.ml.preprocessing.artifacts;
         predictionForm.innerHTML = "";
         const inputColumns = [
@@ -69,7 +80,7 @@ uploadBtn.addEventListener("click", async(event)=>{
                     body: JSON.stringify(inputData)
                 });
                 const data = await response.json();
-                console.log("PREDICTINO RESPONSE:", data);
+                console.log("PREDICTION RESPONSE:", data);
                 if (!response.ok) {
                     throw new Error(data.detail || "Prediction failed.");
                 }
