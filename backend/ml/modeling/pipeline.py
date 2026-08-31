@@ -8,6 +8,7 @@ from ml.modeling.train_models import train_models
 from ml.modeling.evaluate_models import evaluate_models
 from ml.modeling.select_best import select_best_model
 from ml.modeling.model_storage import save_model
+from ml.evaluation.evaluate import evaluate_model
 import joblib
 from pathlib import Path
 
@@ -56,6 +57,12 @@ def run_ml_pipeline(df):
         evaluation_results,
         problem_type
     )
+
+    final_evaluation = evaluate_model(
+        best_model,
+        X_test,
+        y_test
+    )
     #9. Save best
     model_info = save_model(best_model)
 
@@ -72,5 +79,6 @@ def run_ml_pipeline(df):
         "training": training_info,
         "evaluation": evaluation_results,
         "best_model": best_name,
-        "model_storage": model_info
+        "model_storage": model_info,
+        "final_evaluation": final_evaluation
     }

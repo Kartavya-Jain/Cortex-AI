@@ -41,6 +41,7 @@ async def upload_csv(file: UploadFile = File(...)):
     df = pd.read_csv(io.BytesIO(content), encoding="latin1", engine="python", on_bad_lines="skip")
     dataset_info=analyze_dataset(df)
     ml_result = run_ml_pipeline(df)
+    final_evaluation = ml_result["final_evaluation"]
     print("Original shape:", df.shape)
     ml_result["preprocessing"]["artifacts"].pop("scaler", None)
     dataset_info = make_json_safe(dataset_info)
@@ -48,5 +49,6 @@ async def upload_csv(file: UploadFile = File(...)):
     return jsonable_encoder ({
         "filename": file.filename,
         "dataset": dataset_info,
-        "ml": ml_result
+        "ml": ml_result,
+        "evaluation": final_evaluation
     })

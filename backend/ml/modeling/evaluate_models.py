@@ -10,7 +10,7 @@ def evaluate_models(trained_models, X_test, y_test, problem_type):
             results[name] = {
                 "MAE": float(evaluation["mae"]),
                 "RMSE": float(evaluation["rmse"]),
-                "R2": float(evaluation["r2"])
+                "R2": float(evaluation["r2_score"])
             }
         elif problem_type == "classification":
             accuracy = accuracy_score(y_test, predictions)
