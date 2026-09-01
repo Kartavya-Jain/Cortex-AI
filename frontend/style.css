@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: #0b1020;
+    color: #f5f7ff;
+}
+.topbar{
+    padding: 24px 40px;
+    border-bottom: 1px solid #252c40;
+    background: #10172a;
+}
+.brand h1{
+    margin: 0;
+    font-size: 30px;
+}
+.brand span{
+    display: block;
+    margin-top: 6px;
+    color: #8d97ad;
+    font-size: 14px;
+}
+.dashboard{
+    width: min(1100px, 92%);
+    margin: 40px auto;
+}
