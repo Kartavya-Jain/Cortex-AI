@@ -4,7 +4,8 @@ def train_test_split(X, y, test_size=0.2, random_state=42):
         X,
         y,
         test_size=test_size,
-        random_state=random_state
+        random_state=random_state,
+        stratify=y
     )
     report = {
         "trest_size": test_size,
