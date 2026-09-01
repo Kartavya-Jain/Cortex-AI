@@ -6,10 +6,39 @@
         <title>Cortex-AI</title>
     </head>
     <body>
-        <h1>Cortex-AI</h1>
-        <input type="file" id="csvFile" accept=".csv">
-        <button id="uploadBtn" type="button">Upload CSV</button>
-        <div id="result"></div>
+        <header class="topbar">
+            <div class="brand">
+                <h1>Cortex-AI</h1>
+                <span>Intelligent Data Analysis</span>
+            </div>
+        </header>
+        <main class="dashboard">
+            <section class="upload-section">
+                <div class="section-heading">
+                    <h2>Upload dataset</h2>
+                    <p>Upload a csv file to analyze and build machine learning models.</p>
+                </div>
+                <div class="upload-box">
+                    <input type="file" id="csvFile" accept=".csv">
+                    <button id="uploadBtn" type="button">Upload CSV</button>
+                </div>
+            </section>
+            <section class="results-section">
+                <div class="section-heading">
+                    <h2>ML Results</h2>
+                    <p>Automatically generated insights and model evaluation.</p>
+                </div>
+                <div id="result"></div>
+            </section>
+            <section class="prediction-section">
+                <div class="section-heading">
+                    <h2>Prediction</h2>
+                    <p>Use the trained model to generate a prediction.</p>
+                </div>
+                <div id="predictionForm"></div>
+            </section>
+        </main>
+        <footer>Cortex-AI</footer>
         <div id="predictionForm"></div>
         <script src="script.js"></script>
     </body>
