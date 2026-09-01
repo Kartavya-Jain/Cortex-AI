@@ -48,18 +48,27 @@ uploadBtn.addEventListener("click", async(event)=>{
         result.appendChild(evaluationContainer);
         const artifacts = data.ml.preprocessing.artifacts;
         predictionForm.innerHTML = "";
+        /*
         const inputColumns = [
             ...Object.keys(artifacts.frequency_maps),
-            "bath",
-            "balcony",
             ...artifacts.encoded_columns
         ];
+        */
+        const inputColumns = data.ml.feature_columns
         for (const column of inputColumns) {
+            const field = document.createElement("div");
+            field.className = "prediction-field";
+            const label = document.createElement("label");
+            label.textContent = column;
+            label.htmlFor = column;
             const input = document.createElement("input");
             input.type = "text";
             input.id = column;
             input.name = column;
-            predictionForm.appendChild(input);
+            input.placeholder = `Enter ${column}`;
+            field.appendChild(label);
+            field.appendChild(input);
+            predictionForm.appendChild(field);
         }
         const predictBtn = document.createElement("button");
         predictBtn.type = "button";

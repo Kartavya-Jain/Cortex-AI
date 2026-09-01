@@ -80,5 +80,6 @@ def run_ml_pipeline(df):
         "evaluation": evaluation_results,
         "best_model": best_name,
         "model_storage": model_info,
-        "final_evaluation": final_evaluation
+        "final_evaluation": final_evaluation,
+        "feature_columns": X.columns.tolist()
     }
