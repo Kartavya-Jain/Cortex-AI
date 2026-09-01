@@ -83,3 +83,25 @@ button:hover{
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
 }
+#predictionForm input{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #30394f;
+    border-radius: 8px;
+    outline: none;
+    background: #0b1020;
+    color: white;
+}
+predictionForm input:focus{
+    border-color: #5865f2;
+}
+predictionForm button{
+    grid-column: 1 / -1;
+}
+footer{
+    padding: 20px;
+    text-align: center;
+    color: #68738b;
+    font-size: 13px;
+    border-top: 1px solid #252c40;
+}
