@@ -27,3 +27,59 @@ body{
     width: min(1100px, 92%);
     margin: 40px auto;
 }
+section{
+    margin-bottom: 28px;
+    padding: 28px;
+    border: 1px solid #252c40;
+    border-radius: 14px;
+    background: #11182b;
+}
+.section-heading h2{
+    margin: 0 0 8px;
+    font-size: 21px;
+}
+.section-heading p{
+    margin: 0 0 22px;
+    color: #8d97ad;
+    font-size: 14px;
+}
+.upload-box{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+input[type="file"]{
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #30394f;
+    border-radius: 8px;
+    background: #0b1020;
+    color: #cbd2e3;
+}
+button{
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #5865f2;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+button:hover{
+    background: #6975ff;
+}
+#result{
+    line-height: 1.6;
+}
+#result h2{
+    margin-top: 0;
+}
+#result p{
+    margin: 8px 0;
+    color: #cbd2e3;
+}
+#predictionForm{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
