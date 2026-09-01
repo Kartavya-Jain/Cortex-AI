@@ -48,13 +48,11 @@ uploadBtn.addEventListener("click", async(event)=>{
         result.appendChild(evaluationContainer);
         const artifacts = data.ml.preprocessing.artifacts;
         predictionForm.innerHTML = "";
-        /*
         const inputColumns = [
             ...Object.keys(artifacts.frequency_maps),
             ...artifacts.encoded_columns
         ];
-        */
-        const inputColumns = data.ml.feature_columns
+        //const inputColumns = data.ml.feature_columns
         for (const column of inputColumns) {
             const field = document.createElement("div");
             field.className = "prediction-field";
