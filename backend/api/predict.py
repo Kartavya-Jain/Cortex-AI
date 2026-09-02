@@ -40,5 +40,5 @@ def make_prediction(data: dict):
     X[numeric_columns] = scaler.transform(X[numeric_columns])
     result = predict(model, X)
     return {
-        "prediction": result[0]
+        "prediction": int(result[0])
     }
