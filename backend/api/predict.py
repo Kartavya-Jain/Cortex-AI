@@ -9,9 +9,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 MODEL_PATH = BASE_DIR / "ml/saved_models/best_model.pkl"
 FEATURE_PATH = BASE_DIR / "ml/saved_models/feature_columns.pkl"
 ARTIFACT_PATH = BASE_DIR / "ml"/"saved_models"/"preprocessing_artifacts.pkl"
+"""
 model = joblib.load(MODEL_PATH)
 feature_columns = joblib.load(FEATURE_PATH)
 artifacts = joblib.load(ARTIFACT_PATH)
+"""
+
 @router.get("/")
 def prediction_home():
     return {
@@ -19,6 +22,9 @@ def prediction_home():
     }
 @router.post("/")
 def make_prediction(data: dict):
+    model = joblib.load(MODEL_PATH)
+    feature_columns = joblib.load(FEATURE_PATH)
+    artifacts = joblib.load(ARTIFACT_PATH)
     X = pd.DataFrame([data])
     frequency_maps = artifacts["frequency_maps"]
     for column, mapping in frequency_maps.items():
