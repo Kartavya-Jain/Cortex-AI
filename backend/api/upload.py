@@ -32,11 +32,15 @@ def upload_home():
     }
 @router.post("/csv")
 async def upload_csv(file: UploadFile = File(...)):
+    """
     file_path=UPLOAD_FOLDER/file.filename
     with open(file_path, "wb") as f:
         shutil.copyfileobj(file.file, f)
     with open(file_path, "rb") as f:
         content=f.read()
+    content = content.replace(b"\x00", b"")
+    """
+    content = await file.read()
     content = content.replace(b"\x00", b"")
     df = pd.read_csv(io.BytesIO(content), encoding="latin1", engine="python", on_bad_lines="skip")
     dataset_info=analyze_dataset(df)

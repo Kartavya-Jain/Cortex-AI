@@ -19,6 +19,17 @@ def run_ml_pipeline(df):
     problem_type = roles["target_type"]
     if target_column is None:
         raise ValueError("Target column couldn't be detected.")
+
+    roles=analyze_column_roles(df)
+    target_column = roles["target_column"]
+    problem_type = roles["target_type"]
+    if target_column is None:
+        raise ValueError("Target column couldn't be detected.")
+    original_feature_columns = [
+        column for column in df.columns
+        if column != target_column
+    ]
+    
     #2. Preprocesing
     cleaned_df, preprocessing_info = preprocess_dataset(df, target_column)
     ARTIFACT_PATH = Path(__file__).resolve().parent.parent / "saved_models"/"preprocessing_artifacts.pkl"
@@ -69,7 +80,7 @@ def run_ml_pipeline(df):
     #10. Save feature columns
     BASE_DIR = Path(__file__).resolve().parent.parent
     FEATURE_PATH = BASE_DIR / "saved_models"/"feature_columns.pkl"
-    joblib.dump(X.columns.tolist(), FEATURE_PATH)
+    joblib.dump(original_feature_columns, FEATURE_PATH)
     return {
         "target_column": target_column,
         "problem_type": problem_type,
@@ -81,5 +92,5 @@ def run_ml_pipeline(df):
         "best_model": best_name,
         "model_storage": model_info,
         "final_evaluation": final_evaluation,
-        "feature_columns": X.columns.tolist()
+        "feature_columns": original_feature_columns
     }
