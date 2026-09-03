@@ -14,9 +14,24 @@ def evaluate_models(trained_models, X_test, y_test, problem_type):
             }
         elif problem_type == "classification":
             accuracy = accuracy_score(y_test, predictions)
-            precision = precision_score(y_test, predictions, zero_division=0)
-            recall = recall_score(y_test, predictions, zero_division=0)
-            f1 = f1_score(y_test, predictions, zero_division=0)
+            precision = precision_score(
+                y_test,
+                predictions,
+                average="weighted",
+                zero_division=0
+            )
+            recall = recall_score(
+                y_test,
+                predictions,
+                average="weighted",
+                zero_division=0
+            )
+            f1 = f1_score(
+                y_test,
+                predictions,
+                average="weighted",
+                zero_division=0
+            )
             results[name] = {
                 "accuracy": float(accuracy),
                 "precision": float(precision),
