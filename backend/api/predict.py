@@ -7,7 +7,7 @@ router = APIRouter()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 MODEL_PATH = BASE_DIR / "ml/saved_models/best_model.pkl"
-FEATURE_PATH = BASE_DIR / "ml/saved_models/feature_columns.pkl"
+MODEL_FEATURE_PATH = BASE_DIR / "ml/saved_models/model_feature_columns.pkl"
 ARTIFACT_PATH = BASE_DIR / "ml"/"saved_models"/"preprocessing_artifacts.pkl"
 """
 model = joblib.load(MODEL_PATH)
@@ -23,7 +23,7 @@ def prediction_home():
 @router.post("/")
 def make_prediction(data: dict):
     model = joblib.load(MODEL_PATH)
-    feature_columns = joblib.load(FEATURE_PATH)
+    model_feature_columns = joblib.load(MODEL_FEATURE_PATH)
     artifacts = joblib.load(ARTIFACT_PATH)
     X = pd.DataFrame([data])
     frequency_maps = artifacts["frequency_maps"]
@@ -34,7 +34,7 @@ def make_prediction(data: dict):
         columns=artifacts["encoded_columns"],
         drop_first=True
         )
-    X = X.reindex(columns=feature_columns, fill_value=0)
+    X = X.reindex(columns=model_feature_columns, fill_value=0)
     scaler = artifacts["scaler"]
     numeric_columns = scaler.feature_names_in_
     X[numeric_columns] = scaler.transform(X[numeric_columns])
