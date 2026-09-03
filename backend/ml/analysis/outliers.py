@@ -1,6 +1,8 @@
 import pandas as pd
-def analyze_outliers(df):
+def analyze_outliers(df, target_column=None):
     numeric_columns=df.select_dtypes(include="number").columns
+    if target_column in numeric_columns:
+        numeric_columns = numeric_columns.drop(target_column)
     outliers={}
     for x in numeric_columns:
         Q1=df[x].quantile(0.25)

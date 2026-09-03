@@ -12,13 +12,21 @@ def preprocess_dataset(df, target_column=None):
     """
 
     df, duplicates_preprocessing_report=handle_duplicates(df)
+    print("AFTER DUPLICATES:", df[target_column].value_counts(dropna=False).to_dict())
     df, missing_preprocessing_report=handle_missing_values(df)
+    print("AFTER MISSING:", df[target_column].value_counts(dropna=False).to_dict())
     df, constant_columns_preprocessing_report=handle_constant_columns(df)
+    print("AFTER CONSTANT:", df[target_column].value_counts(dropna=False).to_dict())
     df, datatypes_preprocessing_report=handle_datatypes(df)
-    df, outliers_preprocessing_report=handle_outliers(df)
+    print("AFTER DATATYPES:", df[target_column].value_counts(dropna=False).to_dict())
+    df, outliers_preprocessing_report=handle_outliers(df, target_column=target_column)
+    print("AFTER OUTLIERS:", df[target_column].value_counts(dropna=False).to_dict())
     df, high_cardinality_preprocessing_report=handle_high_cardinality(df)
+    print("AFTER HIGH CARDINALITY:", df[target_column].value_counts(dropna=False).to_dict())
     df, encoding_preprocessing_report=handle_encoding(df)
+    print("AFTER ENCODING:", df[target_column].value_counts(dropna=False).to_dict())
     df, scaling_preprocessing_report=handle_scaling(df, target_column=target_column)
+    print("AFTER SCALING:", df[target_column].value_counts(dropna=False).to_dict())
     preprocessing_artifacts = {
         "frequency_maps": high_cardinality_preprocessing_report["frequency_maps"],
         "scaler": scaling_preprocessing_report["scaler"],

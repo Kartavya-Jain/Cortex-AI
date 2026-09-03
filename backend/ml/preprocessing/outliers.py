@@ -1,6 +1,6 @@
 from ml.analysis.outliers import analyze_outliers
-def handle_outliers(df, strategy="cap"):
-    outliers_report=analyze_outliers(df)
+def handle_outliers(df, strategy="cap", target_column=None):
+    outliers_report=analyze_outliers(df, target_column)
     outliers=outliers_report["outliers"]
     handled_columns=[]
     if strategy=="cap":
