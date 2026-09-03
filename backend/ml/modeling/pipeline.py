@@ -19,12 +19,6 @@ def run_ml_pipeline(df):
     problem_type = roles["target_type"]
     if target_column is None:
         raise ValueError("Target column couldn't be detected.")
-
-    roles=analyze_column_roles(df)
-    target_column = roles["target_column"]
-    problem_type = roles["target_type"]
-    if target_column is None:
-        raise ValueError("Target column couldn't be detected.")
     original_feature_columns = [
         column for column in df.columns
         if column != target_column
@@ -32,15 +26,16 @@ def run_ml_pipeline(df):
     
     #2. Preprocesing
     cleaned_df, preprocessing_info = preprocess_dataset(df, target_column)
-    ARTIFACT_PATH = Path(__file__).resolve().parent.parent / "saved_models"/"preprocessing_artifacts.pkl"
-    joblib.dump(
-        preprocessing_info["artifacts"],
-        ARTIFACT_PATH
-    )
     #3. Feature / Target split
     X, y, split_info = split_features_target(
         cleaned_df,
         target_column
+    )
+    model_feature_columns = X.columns.tolist()
+    ARTIFACT_PATH = Path(__file__).resolve().parent.parent / "saved_models"/"preprocessing_artifacts.pkl"
+    joblib.dump(
+        preprocessing_info["artifacts"],
+        ARTIFACT_PATH
     )
     #4. Train / Test split
     X_train, X_test, y_train, y_test, split_report = train_test_split(
@@ -79,8 +74,10 @@ def run_ml_pipeline(df):
 
     #10. Save feature columns
     BASE_DIR = Path(__file__).resolve().parent.parent
-    FEATURE_PATH = BASE_DIR / "saved_models"/"feature_columns.pkl"
-    joblib.dump(original_feature_columns, FEATURE_PATH)
+    INPUT_FEATURE_PATH = BASE_DIR / "saved_models"/"input_feature_columns.pkl"
+    MODEL_FEATURE_PATH = BASE_DIR / "saved_models"/"model_feature_columns.pkl"
+    joblib.dump(original_feature_columns, INPUT_FEATURE_PATH)
+    joblib.dump(model_feature_columns, MODEL_FEATURE_PATH)
     return {
         "target_column": target_column,
         "problem_type": problem_type,
