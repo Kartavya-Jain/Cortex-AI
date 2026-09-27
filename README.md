@@ -1,3 +1,7 @@
+## 🚀 Project Overview
+This repository contains Cortex AI which is a lightweight, automated ML platform for analyzing CSV datasets.
+It uses conventional machine-learning techniques such as Linear and Logistic Regression to automate preprocessing, evaluation, and prediction to provide a simple end-to-end ML workflow.
+
 ## 🛠️ Installation & Setup
 
 1. Clone this repository:
