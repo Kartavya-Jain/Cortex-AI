@@ -10,12 +10,12 @@ def evaluate_model(model, X, y):
     actual = np.asarray(y)
     predicted = np.asarray(predicted)
     absolute_error = np.abs(actual - predicted)
+    error_percent = np.zeros_like(actual, dtype=float)
+    non_zero = actual != 0
     #Avoid division by zero
-    error_percent = np.where(
-        actual != 0,
-        ( absolute_error / np.abs(actual)) * 100,
-        0
-    )
+    error_percent[non_zero] = (
+        absolute_error[non_zero] / np.abs(actual[non_zero])
+    ) * 100
     result = {
         "actual": actual,
         "predicted": predicted,
