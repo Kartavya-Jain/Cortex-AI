@@ -32,6 +32,26 @@ uploadBtn.addEventListener("click", async(event)=>{
             throw new Error(data.detail || "Upload failed.");
         }
         result.innerHTML = `
+            <div class="result-header">
+                <div>
+                    <h2>ML Analysis Complete</h2>
+                    <p>Dataset successfully processed and model trained.</p>
+                </div>
+                <span class="status-badge">READY</span>
+            </div>
+            <div class="result-grid">
+                <div class="result-card">
+                    <span class="result-label">TARGET</span>
+                    <strong>${data.ml.target_column}</strong>
+                </div>
+                <div class="result-card">
+                    <span class="result-label">PROBLEM TYPE</span>
+                    <strong>${data.ml.problem_type}</strong>
+                </div>
+                <div class="result-card">
+                    <span class="result-label">BEST MODEL</span>
+                    <strong>${data.ml.best_model}</strong>
+                </div>
             <h2>ML Result</h2>
             <p><strong>Target:</strong>${data.ml.target_column}</p>
             <p><strong>Problem Type:</strong>${data.ml.problem_type}</p>
