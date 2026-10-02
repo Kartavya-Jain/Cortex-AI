@@ -1,11 +1,10 @@
-console.log("Kya re bhondu");
 const csvFile = document.getElementById("csvFile");
 const uploadBtn = document.getElementById("uploadBtn");
 const result = document.getElementById("result");
 const predictionForm = document.getElementById("predictionForm")
 uploadBtn.addEventListener("click", async(event)=>{
-    event.preventDefault();
-    event.stopPropagation();
+    //event.preventDefault();
+    //event.stopPropagation();
     if (!csvFile.files.length) {
         result.textContent = "Please select a CSV file.";
         return;
@@ -26,7 +25,9 @@ uploadBtn.addEventListener("click", async(event)=>{
                 throw error;
             });
         const data = await response.json();
-        console.log("Response:", data.ml.final_evaluation);
+        //console.log("Response:", data.ml.final_evaluation);
+        result.textContent = JSON.stringify(data, null, 2);
+        console.log("JSON PARSED:", data);
         if (!response.ok){
             throw new Error(data.detail || "Upload failed.");
         }
@@ -46,15 +47,15 @@ uploadBtn.addEventListener("click", async(event)=>{
             evaluationContainer.appendChild(item);
         });
         result.appendChild(evaluationContainer);
-        const artifacts = data.ml.preprocessing.artifacts;
         predictionForm.innerHTML = "";
+        const inputColumns = data.ml.feature_columns;
         /*
+        const artifacts = data.ml.preprocessing.artifacts;
         const inputColumns = [
             ...Object.keys(artifacts.frequency_maps),
             ...artifacts.encoded_columns
         ];
         */
-        const inputColumns = data.ml.feature_columns
         console.log("INPUT COLUMNS:", inputColumns);
         for (const column of inputColumns) {
             const field = document.createElement("div");
