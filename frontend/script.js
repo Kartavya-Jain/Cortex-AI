@@ -3,8 +3,8 @@ const uploadBtn = document.getElementById("uploadBtn");
 const result = document.getElementById("result");
 const predictionForm = document.getElementById("predictionForm")
 uploadBtn.addEventListener("click", async(event)=>{
-    //event.preventDefault();
-    //event.stopPropagation();
+    event.preventDefault();
+    event.stopPropagation();
     if (!csvFile.files.length) {
         result.textContent = "Please select a CSV file.";
         return;
@@ -25,7 +25,6 @@ uploadBtn.addEventListener("click", async(event)=>{
                 throw error;
             });
         const data = await response.json();
-        //console.log("Response:", data.ml.final_evaluation);
         result.textContent = JSON.stringify(data, null, 2);
         console.log("JSON PARSED:", data);
         if (!response.ok){
@@ -116,8 +115,10 @@ uploadBtn.addEventListener("click", async(event)=>{
                     throw new Error(data.detail || "Prediction failed.");
                 }
                 result.innerHTML += 
-                    `<h2>Prediction</h2>
-                    <p><strong>Predicted Price:</strong>${data.prediction}</p>`;
+                    `<div class="prediction-result">
+                    <h2>Prediction</h2>
+                    <p><strong>Result:</strong>${data.prediction}</p>
+                    </div>`;
             } catch (error) {
                 console.error("PREDICTION ERROR:", error);
             }
