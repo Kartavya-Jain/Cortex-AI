@@ -61,25 +61,85 @@
                 </aside>
             </div>
             <main class="dashboard">
-                <section class="upload-section">
+                <section class="welcome-section">
                     <div class="section-heading">
-                        <h2>Upload dataset</h2>
-                        <p>Upload a csv file to analyze and build machine learning models.</p>
-                    </div>
-                    <div class="upload-box">
-                        <input type="file" id="csvFile" accept=".csv">
-                        <button id="uploadBtn" type="button">Upload CSV</button>
+                        <span class="eyebrow">✦ DATA ANALYSIS WORKSPACE</span>
+                        <h2>Welcome to Cortex-AI</h2>
+                        <p>Upload your dataset, analyze it, train a model and make predictions with AI assistance.</p>
                     </div>
                 </section>
-                <section class="results-section">
-                    <div class="section-heading">
+                <section class="upload-section" id="upload">
+                    <div class="upload-box">
+                        <div class="upload-icon">☁️</div>
+                        <h3>Drag &amp; Drop your CSV file here</h3>
+                        <p>or</p>
+                        <label for="csvFile" class="choose-file">
+                            📄 Choose CSV File
+                        </label>
+                        <input
+                            type="file"
+                            id="csvFile"
+                            accept=".csv"
+                        >
+                        <span class="upload-note">
+                            Supports CSV files up to 10 MB
+                        </span>
+                        <button
+                            id="uploadBtn"
+                            type="button"
+                            class="upload-button-hidden"
+                        >Upload CSV
+                        </button>
+                    </div>
+                </section>
+                <section class="info-cards">
+                    <div class="info-card">
+                        <div class="info-icon purple">◎</div>
+                        <div>
+                            <span>DATASET</span>
+                            <h3>Upload &amp; Explore</h3>
+                        </div>
+                        <span class="arrow">></span>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon peach">⚙️</div>
+                        <div>
+                            <span>PREPROCESSING</span>
+                            <h3>Clean &amp; Prepare</h3>
+                        </div>
+                        <span class="arrow">></span>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon green">▣</div>
+                        <div>
+                            <span>MODEL SELECTION</span>
+                            <h3>Choose Best Model</h3>
+                        </div>
+                        <span class="arrow">></span>
+                    </div>
+                </section>
+                <section class="results-section" id="results">
+                    <div class="section-title-row">
+                        <div>
+                            <span class="section-label">✦ RESULTS</span>
+                            <h2>Model Evaluation</h2>
+                        </div>
+                        <span class="performance-label">
+                            Performance Metrics
+                        </span>
+                    </div>
+                    <div id="result" class="result-container">
                         <h2>ML Results</h2>
                         <p>Automatically generated insights and model evaluation.</p>
                     </div>
-                    <div id="result"></div>
                 </section>
-                <section class="prediction-section">
-                    <div class="section-heading">
+                <section class="prediction-section" id="prediction">
+                    <div class="section-title-row">
+                        <div>
+                            <span class="section-label">✦ PREDICTION</span>
+                            <h2>Make a Prediction</h2>
+                            <p>Enter the values for each feature and get instant predictions from your trained model.</p>
+                        </div>
                         <h2>Prediction</h2>
                         <p>Use the trained model to generate a prediction.</p>
                     </div>
