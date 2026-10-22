@@ -82,12 +82,13 @@ textarea:focus-visible{
     align-items: center;
     justify-content: space-between;
     min-height: 94px;
-    padding: 20px 6%;
+    padding: 20px 24px;
     border-bottom: 1px solid var(--border);
     background: rgba(11,16,32,0.78);
     backdrop-filter: blur(18px);
 }
 .brand{
+    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 14px;
@@ -182,7 +183,7 @@ textarea:focus-visible{
 .upload-box{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 18px;
     padding: 25px;
@@ -195,7 +196,7 @@ textarea:focus-visible{
         border-color 0.25s ease;
 }
 .upload-section{
-    margin-bottom: 55px;
+    margin-bottom: 0;
 }
 .upload-box:hover{
     border-color: var(--accent-light);
@@ -220,6 +221,7 @@ textarea:focus-visible{
     max-width: 440px;
     min-width: 0;
     padding: 11px;
+    display: none;
     color: var(--text-secondary);
     font-size: 13px;
     border: 1px solid var(--border);
@@ -280,7 +282,7 @@ button:active{
 }
 #predictionForm{
     display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
+    grid-template-columns: minmax(0,1fr);
     gap: 18px;
     padding: 25px;
     border: 1px solid var(--border);
@@ -377,7 +379,7 @@ footer{
     color: var(--text-primary);
 }
 .sidebar{
-    min-height: calc(100vh- 94px);
+    min-height: calc(100vh - 94px);
     padding: 28px 16px;
     background: var(--bg-secondary);
     border-right: 1px solid var(--border);
@@ -472,6 +474,7 @@ footer{
     right: 0;
     z-index: 10;
     min-width: 180px;
+    display: none;
     padding: 10px;
     border: 1px solid var(--border);
     border-radius: 12px;
@@ -542,6 +545,7 @@ footer{
     grid-column: 1;
     grid-row: 2;
     min-width: 0;
+    min-height: calc(100vh - 94px);
 }
 .dashboard{
     grid-column: 2;
@@ -552,12 +556,14 @@ footer{
     display: flex;
     flex-direction: column;
     gap: 24px;
+    align-self: stretch;
 }
 .right-panel{
     grid-column: 3;
     grid-row: 2;
     min-width: 0;
     padding: 30px 20px;
+    align-self: stretch;
 }
 .info-cards{
     display: grid;
@@ -591,11 +597,11 @@ footer{
     background-color: rgba(118,103,255,0.15);
     color: var(--accent-light);
 }
-.info-icon-peach{
+.info-icon.peach{
     background: rgba(255,200,87,0.13);
     color: var(--warning);
 }
-.info-icon-green{
+.info-icon.green{
     background: rgba(53,214,160,0.13);
     color: var(--success);
 }
@@ -648,7 +654,7 @@ footer{
 }
 .right-stat strong{
     color: var(--text-primary);
-    font-size: 16pxx;
+    font-size: 16ppx;
 }
 .overview-item{
     display: flex;
@@ -674,4 +680,15 @@ footer{
 }
 .overview-dot.peach{
     background: var(--warning);
+}
+.right-footer{
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+    text-align: center;
+}
+.dashboard > .info-cards{
+    width: 100%;
 }
